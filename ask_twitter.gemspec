@@ -4,20 +4,21 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'ask_twitter/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "ask_twitter"
-  spec.version       = AskTwitter::VERSION
-  spec.authors       = ["adrian.caffarelli"]
-  spec.email         = ["adrian.caffarelli@moove-it.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
-  spec.license       = "MIT"
+  spec.add_dependency 'json', '~> 1.8'
+  spec.add_dependency 'oauth'
+  spec.name          = 'ask_twitter'
+  spec.version       = Auto::VERSION
+  spec.authors       = ['adrian.caffarelli']
+  spec.email         = ['adrian.caffarelli@moove-it.com']
+  spec.summary       = %q{Consult AskTwitter for timeline, trending topics, hashtags and user's bio!}
+  spec.homepage      = ''
+  spec.license       = 'MIT'
 
-  spec.files         = `git ls-files -z`.split("\x0")
+  spec.files         = Dir['lib/   *.rb'] + Dir['config.yml']
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
-  spec.require_paths = ["lib"]
+  spec.require_paths = ['lib']
 
-  spec.add_development_dependency "bundler", "~> 1.6"
-  spec.add_development_dependency "rake"
+  spec.add_development_dependency 'bundler', '~> 1.6'
+  spec.add_development_dependency 'rake'
 end
