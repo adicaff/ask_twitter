@@ -1,0 +1,10 @@
+
+consumer:
+  token:  '123'
+  secret: '1234'
+oauth:
+  token:  '124'
+  secret: '1234'
+
+#Site url
+site:     'https://api.twitter.com'
