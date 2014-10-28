@@ -1,6 +1,10 @@
 require 'oauth'
 require 'json'
 require_relative 'ask_twitter/config_reader'
+require_relative 'ask_twitter/trend'
+require_relative 'ask_twitter/hashtag'
+require_relative 'ask_twitter/user'
+require_relative 'ask_twitter/timeline'
 
 class AskTwitter
   attr_reader :api_consumer
@@ -39,8 +43,8 @@ class AskTwitter
   # @option options [String] :include_rts For include retweets.
   #
   # @return [Array<String>] puts the request info in an array.
-  def timeline(screen_name,options={})
-    get(ConfigReader.timeline_route, options.merge({screen_name: screen_name}))
+  def timeline(screen_name, options={})
+    Timeline.new(get(ConfigReader.timeline_route, options.merge({screen_name: screen_name})))
   end
 
   # Returns the user hashtag request perform by the api
@@ -54,7 +58,7 @@ class AskTwitter
   #
   # @return [Array<String>] puts the request info in an array.
   def hashtag(q, options={})
-    get(ConfigReader.hashtag_route, options.merge({q: q}))
+    Hashtag.new(q,get(ConfigReader.hashtag_route, options.merge({q: q})))
   end
 
 
@@ -67,7 +71,7 @@ class AskTwitter
   #
   # @return [Array<String>] puts the request info in an array.
   def trends(id, options={})
-    get(ConfigReader.trend_route, options.merge({id: id}))
+    Trend.new(get(ConfigReader.trend_route, options.merge({id: id})))
   end
 
 
@@ -82,7 +86,10 @@ class AskTwitter
   #
   # @return [Array<String>] puts the request info in an array.
   def user_bio(q, options={})
-    get(ConfigReader.bio_route, options.merge({q: q}))
+    user_data = get(ConfigReader.bio_route, options.merge({q: q})).first
+    User.new({screen_name: user_data['screen_name'],
+              profile_image_url: user_data['profile_image_url'],
+              followers_count: user_data['followers_count']})
   end
 
   # Returns the specific request perform by the api
@@ -111,5 +118,4 @@ class AskTwitter
       [param, URI.encode(value)].join('=')
     end.sort.join('&')
   end
-
 end

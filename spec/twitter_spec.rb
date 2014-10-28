@@ -12,12 +12,12 @@ describe AskTwitter do
     end
 
     it 'gets the timeline tweets' do
-      expect(twitter.api_consumer).to receive(:get).with(ConfigReader.timeline_route+'?')
-      twitter.request('timeline')
+      expect(twitter.api_consumer).to receive(:get).with(ConfigReader.timeline_route+'?'+'screen_name=adrian')
+      twitter.timeline('adrian')
     end
 
     it 'return the timeline tweets correctly' do
-      expect(twitter.request('timeline')).to eq(tweets)
+      expect(twitter.timeline('adrian')).to eq(tweets)
     end
   end
 
@@ -32,11 +32,11 @@ describe AskTwitter do
 
     it 'gets the hashtags' do
       expect(twitter.api_consumer).to receive(:get).with(ConfigReader.hashtag_route+'?q=%23gol')
-      twitter.request('hashtag',{'q'=>'#gol'})
+      twitter.hashtag('#gol')
     end
 
     it 'return the hashtags correctly' do
-      expect(twitter.request('hashtag',{'q'=>'#gol'})).to eq(hashtags)
+      expect(twitter.hashtag('#gol')).to eq(hashtags)
     end
   end
 
@@ -51,11 +51,11 @@ describe AskTwitter do
 
     it 'gets the trends' do
       expect(twitter.api_consumer).to receive(:get).with(ConfigReader.trend_route+'?id=1')
-      twitter.request('trends',{'id'=>'1'})
+      twitter.trends('1')
     end
 
     it 'return the trends correctly' do
-      expect(twitter.request('trends',{'id'=>'1'})).to eq(trends)
+      expect(twitter.trends('1')).to eq(trends)
     end
   end
 
@@ -73,11 +73,11 @@ describe AskTwitter do
 
     it 'gets the bio' do
       expect(twitter.api_consumer).to receive(:get).with(ConfigReader.bio_route+'?q=futbol')
-      twitter.request('bio',{'q'=>'futbol'})
+      twitter.user_bio('futbol')
     end
 
     it 'return the bio correctly' do
-      expect(twitter.request('bio',{'q'=>'futbol'})).to eq(bio)
+      expect(twitter.user_bio('futbol')).to eq(bio)
     end
   end
 
