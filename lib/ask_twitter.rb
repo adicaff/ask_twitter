@@ -86,10 +86,7 @@ class AskTwitter
   #
   # @return [Array<String>] puts the request info in an array.
   def user_bio(q, options={})
-    user_data = get(ConfigReader.bio_route, options.merge({q: q})).first
-    User.new({screen_name: user_data['screen_name'],
-              profile_image_url: user_data['profile_image_url'],
-              followers_count: user_data['followers_count']})
+    User.new(get(ConfigReader.bio_route, options.merge({q: q})).first)
   end
 
   # Returns the specific request perform by the api
