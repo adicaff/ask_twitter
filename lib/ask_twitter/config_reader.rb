@@ -65,18 +65,6 @@ class ConfigReader
     "#{read_config['site']}/1.1/users/search.json"
   end
 
-  def self.selector(type)
-    case type
-      when 'bio'
-        bio_route
-      when 'trends'
-        trend_route
-      when 'timeline'
-        timeline_route
-      when 'hashtag'
-        hashtag_route
-    end
-  end
   private
 
   # Return the consumer token read from config file.
